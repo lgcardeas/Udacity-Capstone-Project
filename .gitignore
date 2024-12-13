@@ -1,2 +1,9 @@
 .DS_Store
 project.zip 
+__pycache__/
+packages*
+historical_earnings_data/
+upcoming_earnings_data/
+linear_regression_model.pkl
+random_forest_model.pkl
+scaler.pkl

@@ -1,0 +1,13 @@
+yfinance
+pandas
+numpy
+scikit-learn
+statsmodels
+Flask
+matplotlib
+holidays
+yahoo_fin
+requests_html
+importlib
+six
+platformdirs
