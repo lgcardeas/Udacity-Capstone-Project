@@ -7,3 +7,4 @@ upcoming_earnings_data/
 linear_regression_model.pkl
 random_forest_model.pkl
 scaler.pkl
+ticker_mapping.json
