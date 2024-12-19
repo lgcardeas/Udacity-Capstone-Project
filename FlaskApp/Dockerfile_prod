@@ -1,0 +1,20 @@
+# Use the official Python base image
+FROM python:3.10-slim
+
+# Set environment variables for production
+ENV FLASK_APP=app.py \
+    FLASK_ENV=production \
+    PYTHONUNBUFFERED=1
+
+# Set the working directory
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
+COPY . .
+
+# Use Gunicorn for production instead of Flask's built-in server
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]

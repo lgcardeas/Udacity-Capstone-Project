@@ -1,0 +1,9 @@
+Flask
+holidays
+pandas
+yfinance
+scikit-learn==1.5.2
+joblib
+boto3
+requests
+gunicorn

@@ -1,0 +1,5 @@
+*.pkl
+historical_earnings_data
+upcomming_earnings_data
+deploy.sh
+__pycache__
