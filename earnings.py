@@ -93,7 +93,7 @@ def load_all_historical_earnings_to_dataframe(symbols=[]):
         os.makedirs(SAVE_HISTORICAL_EARNINGS_DIR, exist_ok=True)
 
     # If the directory is empty, fetch data for provided symbols
-    if not os.listdir(SAVE_HISTORICAL_EARNINGS_DIR) and symbols:
+    if len(os.listdir(SAVE_HISTORICAL_EARNINGS_DIR)) == 0 and len(symbols) > 0:
         print("LEGC: No local historical data found. Fetching data for provided symbols...")
         for symbol in symbols:
             build_historical_earnings(symbol)
@@ -121,7 +121,6 @@ def load_all_historical_earnings_to_dataframe(symbols=[]):
     else:
         print("LEGC: No historical earnings data found in the directory.")
         return pd.DataFrame()  # Return an empty DataFrame if no data
-
 # -------------------------------------
 # Future Earnings Functions
 # -------------------------------------
