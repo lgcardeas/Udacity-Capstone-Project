@@ -10,6 +10,8 @@ cluster_name="flask-ecs-cluster"
 service_name="flask-ecs-service"
 task_family="flask-ecs-task"
 log_group="/ecs/flask-app"
+execution_role_name="stock_predictor_execution_role"
+task_role_name="stock_predictor_task_role"
 
 cd ..
 
@@ -30,6 +32,8 @@ aws ecr get-login-password --region ${region} | docker login --username AWS --pa
 if ! aws ecr describe-repositories --region ${region} --repository-names ${repository_name} >/dev/null 2>&1; then
     echo "Creating ECR repository: ${repository_name}..."
     aws ecr create-repository --repository-name ${repository_name} --region ${region}
+else
+    echo "ECR repository already exists: ${repository_name}"
 fi
 
 # Create and use a new builder instance for multi-platform builds
@@ -62,11 +66,27 @@ else
     echo "CloudWatch log group already exists: ${log_group}"
 fi
 
+# Fetch IAM Role ARNs
+echo "Fetching IAM Role ARNs..."
+execution_role_arn=$(aws iam get-role --role-name ${execution_role_name} --query "Role.Arn" --output text 2>/dev/null || echo "")
+task_role_arn=$(aws iam get-role --role-name ${task_role_name} --query "Role.Arn" --output text 2>/dev/null || echo "")
+
+if [ -z "$execution_role_arn" ]; then
+    echo "Execution role (${execution_role_name}) does not exist. Please create it before running this script."
+    exit 1
+fi
+
+if [ -z "$task_role_arn" ]; then
+    echo "Task role (${task_role_name}) does not exist. Please create it before running this script."
+    exit 1
+fi
+
 # Register a new ECS task definition
 echo "Registering new ECS Task Definition..."
 task_definition_arn=$(aws ecs register-task-definition \
     --family ${task_family} \
-    --execution-role-arn arn:aws:iam::${account}:role/stock_predictor_flask_app \
+    --execution-role-arn ${execution_role_arn} \
+    --task-role-arn ${task_role_arn} \
     --network-mode awsvpc \
     --requires-compatibilities FARGATE \
     --cpu "512" \
