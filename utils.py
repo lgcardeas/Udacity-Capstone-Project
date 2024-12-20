@@ -165,8 +165,12 @@ def predict(symbol, date):
   # Convert to DataFrame for consistency
   input_data_df = pd.DataFrame([input_data])
 
-  # Align feature columns with training data
-  # Replace 'X_train.columns' with the actual column order used during training
+  # Load the column order from the JSON file
+  with open("X_train_columns.json", "r") as file:
+      column_order = json.load(file)
+  # Align the input_data_df columns with the column order
+  input_data_df = input_data_df[column_order]
+
   input_data_df = input_data_df[input_data_df.columns]
 
   # Transform the data using the scaler for models that require scaling

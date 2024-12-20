@@ -192,22 +192,16 @@ def predict(symbol, date):
   result["symbol"] = symbol
   
   return result
- 
-# S3 Configuration
-bucket_name = "capstone-stock-predictable-project"
-model_files = {
-    "random_forest_model.pkl": "/tmp/random_forest_model.pkl",
-    "linear_regression_model.pkl": "/tmp/linear_regression_model.pkl",
-    "scaler.pkl": "/tmp/scaler.pkl",
-} 
+
 
 # S3 Configuration
 BUCKET = "capstone-stock-predictable-project"
-MODELS = {
+S3_REQUIRED_FILES = {
     "random_forest_model.pkl": "random_forest_model.pkl",
     "linear_regression_model.pkl": "linear_regression_model.pkl",
     "scaler.pkl": "scaler.pkl",
-    "ticker_mapping.json": "ticker_mapping.json"
+    "ticker_mapping.json": "ticker_mapping.json",
+    "X_train_columns.json": "/tmp/X_train_columns.json",
 }
 
 # Track the last download time
@@ -228,7 +222,7 @@ def download_models_from_s3(forced=False):
 
     app.logger.debug("Downloading models from S3...")
     try:
-        for local_name, s3_key in MODELS.items():
+        for local_name, s3_key in S3_REQUIRED_FILES.items():
             app.logger.debug(f"Downloading {s3_key}...")
             s3.download_file(BUCKET, s3_key, local_name)
         app.logger.debug("Models downloaded successfully.")

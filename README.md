@@ -39,3 +39,25 @@ Build user interface
 
 Once you’re iterated on your stock predictor a few times, and it is giving results you are happy with (say, predicted stock value 7 days out is within +/- 5% of actual value, on average), implement a more user-friendly interface that lets you specify stock(s) you are interested in and provides predictions at some pre-defined intervals.
 You can extend the system to suggest good stocks to buy or sell, and when. You could also maintain a portfolio of stocks for the user to make these suggestions more concrete. Document these enhancements in your report, with diagrams, screenshots, etc.
+
+## IMPORTANT ##
+Only the following symbols are trained, if we want to expand it, we need to add the symbol to the list..
+
+```
+symbols = {
+    "AAPL": "Apple Inc.",
+    "NET": "Cloudflare Inc.",
+    "SNOW": "Snowflake Inc.",
+    "MSFT": "Microsoft Corporation",
+    "META": "Meta Platforms Inc.",
+    "TSLA": "Tesla Inc.",
+    "DOX": "Amdocs Ltd",
+    "CRM": "Salesforce Inc.",
+    "ADBE": "Adobe Inc.",
+    "F": "Ford Motor Co.",
+    "T": "AT&T Inc.",
+    "VZ": "Verizon Communications",
+    "DOX": "Amdocs Ltd",
+    "NVDA": "Nvidia Corporation",
+}
+```
