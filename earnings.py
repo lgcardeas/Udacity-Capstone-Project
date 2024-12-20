@@ -6,7 +6,9 @@ from datetime import datetime
 import yfinance as yf
 
 # Constants
-API_KEY = '5ZK4FENWU14Q148B'
+# API_KEY = '5ZK4FENWU14Q148B'
+API_KEY = 'SCWWYD4A104AYXGK' # PREMIUN
+
 BASE_URL = 'https://www.alphavantage.co/query'
 SAVE_HISTORICAL_EARNINGS_DIR = './historical_earnings_data'
 SAVE_UPCOMING_EARNINGS_DIR = './upcoming_earnings_data'
